@@ -93,8 +93,7 @@ class AnnouncementController extends Controller
             {
                 $path = public_path('/img/uploads/' . $data->image);
             
-                // Debug to see the full path
-                logger("Trying to delete: " . $path); // or use dd($path);
+                logger("Trying to delete: " . $path);
             
                 if (file_exists($path)) {
                     unlink($path);

@@ -122,15 +122,51 @@ class AdminController extends Controller
     {
         $data = Admin::find($id);
         $data->name = $request->has('name') ? $request->get('name') : '';
-        $data->email = $request->has('email') ? $request->get('email') : '';
         $data->phone = $request->has('phone') ? $request->get('phone') : '';
         $data->address = $request->has('address') ? $request->get('address') : '';
         $data->dob = $request->has('dob') ? $request->get('dob') : '';;
         $data->departmentId = $request->has('departmentId') ? $request->get('departmentId') : '';
-        $data->password = $request->has('txtPassword') ? Hash::make($request->get('txtPassword')) : '';
-        $data->role = 1; // 2 for student        
         $data->status = $request->has('status') ? $request->get('status') : '';
+
+        if($data->role == 1){ $imgname = 'std-'; }
+        elseif($data->role == 2){ $imgname = 'tech-'; }
+        else { $imgname = 'head-'; }
+
+        if ($request->hasFile('photo')) 
+        {
+            if ($data->photo) 
+            {
+                $path = public_path('/img/uploads/' . $data->photo);
+            
+                logger("Trying to delete: " . $path); 
+            
+                if (file_exists($path)) {
+                    unlink($path);
+                } else {
+                    logger("File not found: " . $path);
+                }
+            }
+
+            $files = $request->file('photo');
+            $imagelocation = array();
+            $i = 0;
+            foreach($files as $file)
+            {
+                $extention = $file->getClientOriginalExtension();
+                $filename = $imgname. time() . ++$i . '.' . $extention;
+                $location = '/img/uploads/';
+                $file->move(public_path($location), $filename);
+                $imagelocation[] = $location . $filename;
+                $data->photo = $filename;
+            }
+        } 
+        else 
+        {
+            $data->photo = $data->photo;
+        }
+
+        $data->update();
         
-        dd($request->all(),$data);
+        return redirect()->back()->with('success', 'User data updated successfully.');
     }
 }
