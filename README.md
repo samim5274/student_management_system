@@ -8,4 +8,6 @@ and then run this project. Hope you will get this project.
 
 if you face any problem then knock me.
 
+Note: composer & node.js installed required.
+
 Enjoy!!
