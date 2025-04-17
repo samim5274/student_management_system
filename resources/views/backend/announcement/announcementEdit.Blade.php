@@ -153,7 +153,7 @@
                         </div>  
                         <div class="mb-3">
                             <label for="photo" class="form-label">Photo</label>
-                            <input type="file" class="form-control" id="photo" name="photo[]" accept="image/*" required>
+                            <input type="file" class="form-control" id="photo" name="photo" accept="image/*" required>
                         </div>                      
                         <button type="submit" class="btn btn-primary">Edit</button>
                     </form><br>

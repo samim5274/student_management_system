@@ -8,7 +8,7 @@ use App\Http\Controllers\Backend\TeacherController;
 use App\Http\Controllers\Backend\StudentController;
 use App\Http\Controllers\Backend\TaskController;
 use App\Http\Controllers\Backend\AnnouncementController;
-
+use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
@@ -19,7 +19,7 @@ Route::get('/signin-view', [AdminController::class, 'signinView'])->name('signin
 Route::get('/create-user', [AdminController::class, 'createUser'])->name('create-user');
 
 Route::group(['middleware' => ['admin']], function () {
-    
+
     Route::get('/', function () {
         return view('welcome');
     });
@@ -65,7 +65,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/task-submition-updated/{id}', [TaskController::class, 'tastSubmitUpdated'])->name('task-submition-updated');
 
     Route::get('/announcement-view', [AnnouncementController::class, 'announcementView'])->name('announcement-view');
-    Route::get('/view-announcement-specific/{id}', [AnnouncementController::class, 'announcementSpecific'])->name('announcement-specific');
+    Route::get('/view-announcement-specific/{id}', [AnnouncementController::class, 'announcSpecific'])->name('announcement-specific');
 
     Route::get('/profile-view', [AdminController::class, 'profileView'])->name('profile-view');
     Route::post('/user-profile-update/{id}', [AdminController::class, 'profileUpdate']);
@@ -74,5 +74,4 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/logout', [AdminController::class, 'logout']);
-
 });

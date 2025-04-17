@@ -8,6 +8,7 @@
       <li><a href="/announcement-view">Announcement</a></li>
       <li><a href="/profile-view">Profile - {{Auth::guard('admin')->user()->name}}</a></li>
       <li><a href="#">Setting</a></li>
+      <li><a href="/logout">Lock</a></li>
     </ul>
   </div>
 

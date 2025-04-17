@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Admin;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -81,13 +81,13 @@ class TaskController extends Controller
             $data->update();
             return redirect()->back()->with('success', 'Task submitted successfully!');
         } else {
-            return redirect()->back()->with('error', 'Task not found!'); 
+            return redirect()->back()->with('error', 'Task not found!');
         }
-    }    
+    }
 
     public function taskApprovedView()
     {
-        $data = Task::whereBetween('status', [1,3])->get(); // 0 for pending,1 for submited, 2 for complete, 3 for rejected
+        $data = Task::whereBetween('status', [1, 3])->get(); // 0 for pending,1 for submited, 2 for complete, 3 for rejected
         return view('backend.task.taskApprovedView', compact('data'));
     }
 

@@ -7,20 +7,20 @@ use Illuminate\Http\Request;
 
 use App\Models\Admin;
 use App\Models\Department;
-use Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
-{    
+{
     public function signinView()
     {
         return view('admin.signin');
     }
-    
+
     public function createUser(Request $request)
     {
         $data = new Admin();
-        
+
         $email = $request->has('txtEmail') ? $request->get('txtEmail') : '';
         $password = $request->has('txtPassword') ? $request->get('txtPassword') : '';
         $name = $request->has('txtName') ? $request->get('txtName') : '';
@@ -53,7 +53,7 @@ class AdminController extends Controller
     {
         return view('admin.login');
     }
-    
+
     public function userLogin(Request $request)
     {
         $creadentials = [
@@ -61,13 +61,10 @@ class AdminController extends Controller
             'password' => $request->input('txtPassword'),
             'role' => $request->input('cbxRole'),
         ];
-        if (Auth::guard('admin')->attempt($creadentials)) 
-        {
+        if (Auth::guard('admin')->attempt($creadentials)) {
             $userId = Auth::guard('admin')->user()->id;
             return redirect()->route('admin.dashboard');
-        } 
-        else 
-        {
+        } else {
             return redirect()->back()->with('error', 'Invalid user mail or password');
         }
     }
@@ -82,7 +79,7 @@ class AdminController extends Controller
         Auth::guard('admin')->logout();
         return redirect()->route('login-view');
     }
-    
+
     public function passView($id)
     {
         $data = Auth::guard('admin')->user()->id;
@@ -97,15 +94,12 @@ class AdminController extends Controller
         if (!$admin) {
             return redirect()->back()->with('error', 'User not found.');
         }
-        
-        if (Hash::check($request->input('txtOldPassword'), $admin->password)) 
-        {
-            $admin->password = Hash::make($request->input('txtNewPassword')); 
+
+        if (Hash::check($request->input('txtOldPassword'), $admin->password)) {
+            $admin->password = Hash::make($request->input('txtNewPassword'));
             $admin->update();
             return redirect()->back()->with('success', 'Your password is changed.');
-        } 
-        else 
-        {
+        } else {
             return redirect()->back()->with('error', 'Invalid password. Please try again. Thank you!');
         }
     }
@@ -114,8 +108,8 @@ class AdminController extends Controller
     {
         $data = Auth::guard('admin')->user()->id;
         $users = Admin::with('department')->where('id', $data)->get();
-        $departments = Department::all(); // dd($users);
-        return view('admin.profileView', compact('users','departments'));
+        $departments = Department::all();
+        return view('admin.profileView', compact('users', 'departments'));
     }
 
     public function profileUpdate(Request $request, $id)
@@ -128,18 +122,20 @@ class AdminController extends Controller
         $data->departmentId = $request->has('departmentId') ? $request->get('departmentId') : '';
         $data->status = $request->has('status') ? $request->get('status') : '';
 
-        if($data->role == 1){ $imgname = 'std-'; }
-        elseif($data->role == 2){ $imgname = 'tech-'; }
-        else { $imgname = 'head-'; }
+        if ($data->role == 1) {
+            $imgname = 'std-';
+        } elseif ($data->role == 2) {
+            $imgname = 'tech-';
+        } else {
+            $imgname = 'head-';
+        }
 
-        if ($request->hasFile('photo')) 
-        {
-            if ($data->photo) 
-            {
+        if ($request->hasFile('photo')) {
+            if ($data->photo) {
                 $path = public_path('/img/uploads/' . $data->photo);
-            
-                logger("Trying to delete: " . $path); 
-            
+
+                logger("Trying to delete: " . $path);
+
                 if (file_exists($path)) {
                     unlink($path);
                 } else {
@@ -150,23 +146,20 @@ class AdminController extends Controller
             $files = $request->file('photo');
             $imagelocation = array();
             $i = 0;
-            foreach($files as $file)
-            {
+            foreach ($files as $file) {
                 $extention = $file->getClientOriginalExtension();
-                $filename = $imgname. time() . ++$i . '.' . $extention;
+                $filename = $imgname . time() . ++$i . '.' . $extention;
                 $location = '/img/uploads/';
                 $file->move(public_path($location), $filename);
                 $imagelocation[] = $location . $filename;
                 $data->photo = $filename;
             }
-        } 
-        else 
-        {
+        } else {
             $data->photo = $data->photo;
         }
 
         $data->update();
-        
+
         return redirect()->back()->with('success', 'User data updated successfully.');
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2025 at 09:43 AM
+-- Generation Time: Apr 16, 2025 at 09:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,14 +49,12 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `photo`, `phone`, `address`, `dob`, `departmentId`, `role`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Amzad Hossain', 'amzad@gmail.com', '$2y$10$N52Ms9u9IJn0.uzi4FV3Bu8ZV3TxK2zbTfxlUEcSQU26y1DCoUJ5G', NULL, '123456789', 'Dhaka', '2025-04-14', 1, 3, 1, '2025-04-13 23:30:50', '2025-04-13 23:30:50'),
-(2, 'Shamim Hossain', 'samim@gmail.com', '$2y$10$db23JrxYJp6d23ITwJYvXuOLOpg/u.XlyiZ96liA1XaVJrnfPlgP.', NULL, '123456789', 'Dhaka', '2025-04-14', 1, 2, 1, '2025-04-13 23:31:15', '2025-04-13 23:31:15'),
+(2, 'Shamim Hossain', 'samim@gmail.com', '$2y$10$db23JrxYJp6d23ITwJYvXuOLOpg/u.XlyiZ96liA1XaVJrnfPlgP.', 'head-17448198451.JPG', '123456789', 'Dhaka', '2025-04-14', 1, 3, 1, '2025-04-13 23:31:15', '2025-04-16 10:10:45'),
 (3, 'Rakib Hossain', 'rakib@gmail.com', '$2y$10$mapnlTFTkf/TfR3A2EafBeNDtdRXO9Ir.8GYEBdUQMt2A9sw/Dtre', NULL, '123456789', 'Dhaka', '2025-04-14', 1, 1, 1, '2025-04-13 23:31:29', '2025-04-13 23:31:29'),
 (4, 'Md Akbor Hossain', 'akbar@gmail.com', '$2y$10$SpeilaWTViUqJ/IPpaWNWum4zkWgmzO76gSiVwYGUuLCp/LqWq83i', 'tech-17446125041.JPG', '123456789', 'Dhaka', '2025-04-14', 5, 2, 1, '2025-04-14 00:35:04', '2025-04-14 00:35:04'),
 (5, 'Prof. Akram Mia', 'akram@gmail.com', '$2y$10$SpeilaWTViUqJ/IPpaWNWum4zkWgmzO76gSiVwYGUuLCp/LqWq83i', 'tech-17446126421.JPG', '123456789', 'Dhaka', '2025-04-14', 6, 2, 1, '2025-04-14 00:37:22', '2025-04-14 00:37:22'),
 (6, 'Md Anisul Islam', 'anis@gmail.com', '$2y$10$zGqSutLnVr/MNMaXzAVnaujNG.9aVdYRSSmjbm9bki5JYGjfidBym', 'std-17446129981.JPG', '3216549872', 'Dhaka', '2025-04-14', 3, 1, 1, '2025-04-14 00:43:18', '2025-04-14 00:43:18'),
-(7, 'Mimi Akter', 'mimi@gmail.com', '$2y$10$rX5koYBHBsyAihuU2HRUJuW6R7T9zJENVhNFrSxNgJoiMLai4OH1.', 'std-17446134871.JPG', '321654', 'Dhaka', '2025-04-14', 5, 1, 1, '2025-04-14 00:51:27', '2025-04-15 01:39:55'),
-(8, 'Babu', 'babu@gmail.com', '$2y$10$XB6ElJDV0qRO.UDlX.OQHeHOkSolUfw8ZbVECEYtX.DabvZWhRP.m', NULL, '123456789', 'Dhaka', '2025-04-15', 1, 3, 1, '2025-04-15 00:59:20', '2025-04-15 00:59:20'),
-(9, 'Arifa Akter', 'arifa@gmail.com', '$2y$10$3oxZdJ1Ze2E.rVRzqnoZSeW2qTE9IWmOptE/dNg0L8IM4KWwLm6s6', 'std-17447004191.JPG', '3216549872', 'Dhaka, Bangladesh', '2025-04-15', 6, 1, 1, '2025-04-15 01:00:19', '2025-04-15 01:00:19');
+(7, 'Mimi Akter', 'mimi@gmail.com', '$2y$10$CBz5/2OfCOWs.EHdZEl9r.ACTPeLqueowSWR6Hf2KQbaY5ODF6.96', 'std-17446134871.JPG', '321654', 'Dhaka', '2025-04-14', 5, 1, 1, '2025-04-14 00:51:27', '2025-04-14 00:51:27');
 
 -- --------------------------------------------------------
 
@@ -80,7 +78,10 @@ CREATE TABLE `announcements` (
 INSERT INTO `announcements` (`id`, `title`, `description`, `image`, `created_at`, `updated_at`) VALUES
 (1, 'Government Holiday Notice', '14 April-2025 government holiday.\r\nThis is our bangla new year 1432.', 'std-17446552801.JPG', '2025-04-14 12:28:00', '2025-04-14 12:28:00'),
 (6, 'Holiday Notce', 'Without any reason tomorrow is holiday.', 'announce-17446601641.jpg', '2025-04-14 13:49:24', '2025-04-14 13:49:24'),
-(7, 'Boishak Holiday', 'Today Boishak Holiday\r\nIf any one went to office. they can be attend the office', 'announce-17446950881.jpg', '2025-04-14 23:31:28', '2025-04-14 23:32:09');
+(14, 'Goverment Holiday Notice', 'mm', 'announce-17448236671.jpg', '2025-04-16 11:14:27', '2025-04-16 11:14:27'),
+(15, 'Goverment Holiday Notice', 'ASDLFKJAPO', 'announce-17448246701.jpg', '2025-04-16 11:31:10', '2025-04-16 11:31:10'),
+(16, 'Goverment Holiday Notice', 'AZX', 'announce-17448255881.jpg', '2025-04-16 11:46:28', '2025-04-16 11:49:55'),
+(17, 'Holiday Notce', 'Not', 'announce-1744826479.jpg', '2025-04-16 12:01:19', '2025-04-16 12:01:19');
 
 -- --------------------------------------------------------
 
@@ -207,7 +208,8 @@ INSERT INTO `tasks` (`id`, `title`, `description`, `date`, `status`, `teacherId`
 (1, 'Find the largest value problem?', 'Use C Language', '2025-04-14', 1, 2, 1, 'Done', '2025-04-14 02:08:40', '2025-04-14 11:39:08'),
 (3, 'Newton 3rd Law solved.', 'Hand Write,\r\nSubmit in picture.\r\nDon\'t copy to other person.', '2025-04-14', 2, 5, 1, 'Done', '2025-04-14 02:09:27', '2025-04-14 11:52:42'),
 (4, 'Tree generate usign C', 'Graph Tree\r\nUse only your mind\r\nDo not use AI', '2025-04-14', 3, 5, 1, 'Done', '2025-04-14 03:20:38', '2025-04-14 11:45:56'),
-(5, 'Number wise month find.', 'Using C language,\r\nonly if else statement.', '2025-04-14', 0, 1, NULL, NULL, '2025-04-14 11:45:35', '2025-04-14 11:45:35');
+(5, 'Number wise month find.', 'Using C language,\r\nonly if else statement.', '2025-04-14', 0, 1, NULL, NULL, '2025-04-14 11:45:35', '2025-04-14 11:45:35'),
+(6, 'Create user interface for login page.', 'User HTML, CSS, Js\r\nphp, laravel\r\nMiddleware', '2025-04-14', 0, 1, NULL, NULL, '2025-04-14 11:52:32', '2025-04-14 11:52:32');
 
 -- --------------------------------------------------------
 
@@ -298,13 +300,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `departments`

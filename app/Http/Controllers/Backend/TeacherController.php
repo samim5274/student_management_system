@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Admin;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Department;
 
 class TeacherController extends Controller
 {
     public function teacherView()
-    {   
+    {
         $data = Admin::with('department')->where('role', 2)->get();
         $departments = Department::all();
         return view('backend.teacher.teacher', compact('data', 'departments'));
@@ -30,26 +30,22 @@ class TeacherController extends Controller
         $data->departmentId = $request->has('departmentId') ? $request->get('departmentId') : '';
         $data->password = $request->has('txtPassword') ? Hash::make($request->get('txtPassword')) : '';
         $data->role = 2; // 2 for teacher
-        
+
         $data->status = $request->has('status') ? $request->get('status') : '';
 
-        if ($request->hasFile('photo')) 
-        {
+        if ($request->hasFile('photo')) {
             $files = $request->file('photo');
             $imagelocation = array();
             $i = 0;
-            foreach($files as $file)
-            {
+            foreach ($files as $file) {
                 $extention = $file->getClientOriginalExtension();
-                $filename = 'tech-'. time() . ++$i . '.' . $extention;
+                $filename = 'tech-' . time() . ++$i . '.' . $extention;
                 $location = '/img/uploads/';
                 $file->move(public_path($location), $filename);
                 $imagelocation[] = $location . $filename;
                 $data->photo = $filename;
             }
-        } 
-        else 
-        {
+        } else {
             $data->photo = '';
         }
 

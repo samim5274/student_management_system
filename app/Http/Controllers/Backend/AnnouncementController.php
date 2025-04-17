@@ -21,27 +21,18 @@ class AnnouncementController extends Controller
     {
         $announcement = new Announcement();
 
-        $announcement->title = $request->has('txtTitle') ? $request->get('txtTitle') : '';
-        $announcement->description = $request->has('txtDiscription') ? $request->get('txtDiscription') : '';
+        $announcement->title = $request->get('txtTitle', '');
+        $announcement->description = $request->get('txtDiscription', '');
 
-        if ($request->hasFile('photo')) 
-        {
-            $files = $request->file('photo');
-            $imagelocation = array();
-            $i = 0;
-            foreach($files as $file)
-            {
-                $extention = $file->getClientOriginalExtension();
-                $filename = 'announce-'. time() . ++$i . '.' . $extention;
-                $location = '/img/uploads/';
-                $file->move(public_path($location), $filename);
-                $imagelocation[] = $location . $filename;
-                $announcement->image = $filename;
-            }
-        } 
-        else 
-        {
-            $announcement->image = '';
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo')[0];
+            $extention = $file->getClientOriginalExtension();
+            $filename = 'announce-' . time() . '.' . $extention;
+            $location = '/img/uploads/';
+            $file->move(public_path($location), $filename);
+            $announcement->image = $filename;
+        } else {
+            $announcement->image = NULL;
         }
 
         $announcement->save();
@@ -49,7 +40,7 @@ class AnnouncementController extends Controller
         return redirect()->back()->with('success', 'Announcement created successfully.');
     }
 
-    public function announcementSpecific(Request $request, $id)
+    public function announcSpecific(Request $request, $id)
     {
         $announcement = Announcement::find($id);
         return view('backend.announcement.announcementSpecific', compact('announcement'));
@@ -64,13 +55,11 @@ class AnnouncementController extends Controller
     public function announcementDelete($id)
     {
         $data = Announcement::find($id);
-        if ($data->image) 
-        {
+        if ($data->image) {
             $path = public_path('/img/uploads/' . $data->image);
-        
-            // Debug to see the full path
-            logger("Trying to delete: " . $path); // or use dd($path);
-        
+
+            logger("Trying to delete: " . $path);
+
             if (file_exists($path)) {
                 unlink($path);
             } else {
@@ -83,18 +72,22 @@ class AnnouncementController extends Controller
 
     public function announcementUpdate(Request $request, $id)
     {
+        $request->validate([
+            'txtTitle' => 'required|string|max:255',
+            'txtDiscription' => 'required|string',
+            'photo.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
         $data = Announcement::find($id);
         $data->title = $request->has('txtTitle') ? $request->get('txtTitle') : '';
         $data->description = $request->has('txtDiscription') ? $request->get('txtDiscription') : '';
-
-        if ($request->hasFile('photo')) 
-        {
-            if ($data->image) 
-            {
+        // dd($request->all());
+        if ($request->hasFile('photo')) {
+            if ($data->image) {
                 $path = public_path('/img/uploads/' . $data->image);
-            
+
                 logger("Trying to delete: " . $path);
-            
+
                 if (file_exists($path)) {
                     unlink($path);
                 } else {
@@ -102,25 +95,19 @@ class AnnouncementController extends Controller
                 }
             }
 
-            $files = $request->file('photo');
+            $file = $request->file('photo')[0];
             $imagelocation = array();
             $i = 0;
-            foreach($files as $file)
-            {
-                $extention = $file->getClientOriginalExtension();
-                $filename = 'announce-'. time() . ++$i . '.' . $extention;
-                $location = '/img/uploads/';
-                $file->move(public_path($location), $filename);
-                $imagelocation[] = $location . $filename;
-                $data->image = $filename;
-            }
-        } 
-        else 
-        {
+            $extention = $file->getClientOriginalExtension();
+            $filename = 'announce-' . time() . ++$i . '.' . $extention;
+            $location = '/img/uploads/';
+            $file->move(public_path($location), $filename);
+            $imagelocation[] = $location . $filename;
+            $data->image = $filename;
+        } else {
             $data->image = $data->image;
         }
-        $data->update();
+        $data->save();
         return redirect()->back()->with('success', 'Announcement updated successfully.');
     }
-    
 }
