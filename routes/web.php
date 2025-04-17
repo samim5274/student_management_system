@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
+
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\TeacherController;
@@ -74,4 +77,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/logout', [AdminController::class, 'logout']);
+
+    Route::get('/send-mail', [AnnouncementController::class, 'sendMail']);
+
 });

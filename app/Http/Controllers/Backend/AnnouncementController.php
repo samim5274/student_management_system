@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
+
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +39,7 @@ class AnnouncementController extends Controller
         }
 
         $announcement->save();
-
+        // $this->sendMail(); it's call send mail function
         return redirect()->back()->with('success', 'Announcement created successfully.');
     }
 
@@ -111,5 +114,19 @@ class AnnouncementController extends Controller
         }
         $data->save();
         return redirect()->route('announcement-view')->with('success', 'Announcement updated successfully.');
+    }
+
+    public function sendMail()
+    {
+        $data = Auth::guard('admin')->user();
+
+        $mailAddress = [
+            'swiftoverseastravels@gmail.com',
+            'swiftoverseas0@gmail.com',
+            'xyz.abdullah.m@gmail.com',
+        ];
+        Mail::to($mailAddress)->send(new TestMail($data->name));
+    
+        return 'Email has been sent!';
     }
 }
