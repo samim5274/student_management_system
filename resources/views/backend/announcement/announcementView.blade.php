@@ -183,7 +183,7 @@
                                             </td>
                                             <td>{{ $val->description }}</td>
                                             <td><img src="{{ asset('/img/uploads/' . $val->image) }}" alt="Loading.."
-                                                    style="width:3rem; height:2.5rem;"></td>
+                                                    style="width:3rem; height:2rem;"></td>
                                             <td class="d-flex justify-content-around">
                                                 <a href="{{ url('/announcement-edit/' . $val->id) }}"
                                                     class="btn btn-warning btn-sm">Edit</a>

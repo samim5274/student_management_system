@@ -79,9 +79,9 @@ class AnnouncementController extends Controller
         ]);
 
         $data = Announcement::find($id);
-        $data->title = $request->has('txtTitle') ? $request->get('txtTitle') : '';
-        $data->description = $request->has('txtDiscription') ? $request->get('txtDiscription') : '';
-        // dd($request->all());
+        $data->title = $request->get('txtTitle', '');
+        $data->description = $request->get('txtDiscription','');
+        
         if ($request->hasFile('photo')) {
             if ($data->image) {
                 $path = public_path('/img/uploads/' . $data->image);
@@ -95,19 +95,21 @@ class AnnouncementController extends Controller
                 }
             }
 
-            $file = $request->file('photo')[0];
+            $files = $request->file('photo');
             $imagelocation = array();
             $i = 0;
-            $extention = $file->getClientOriginalExtension();
-            $filename = 'announce-' . time() . ++$i . '.' . $extention;
-            $location = '/img/uploads/';
-            $file->move(public_path($location), $filename);
-            $imagelocation[] = $location . $filename;
-            $data->image = $filename;
+            foreach ($files as $file) {
+                $extention = $file->getClientOriginalExtension();
+                $filename = 'announce-' . time() . ++$i . '.' . $extention;
+                $location = '/img/uploads/';
+                $file->move(public_path($location), $filename);
+                $imagelocation[] = $location . $filename;
+                $data->image = $filename;
+            }
         } else {
             $data->image = $data->image;
         }
         $data->save();
-        return redirect()->back()->with('success', 'Announcement updated successfully.');
+        return redirect()->route('announcement-view')->with('success', 'Announcement updated successfully.');
     }
 }

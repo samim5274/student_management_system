@@ -44,7 +44,7 @@ Route::group(['middleware' => ['admin']], function () {
         Route::post('/create-announcement', [AnnouncementController::class, 'createAnnouncement'])->name('create-announcement');
         Route::get('/announcement-edit/{id}', [AnnouncementController::class, 'announcementEdit'])->name('announcement-edit');
         Route::get('/announcement-delete/{id}', [AnnouncementController::class, 'announcementDelete']);
-        Route::get('/announcement-edit-update/{id}', [AnnouncementController::class, 'announcementUpdate'])->name('announcement-Update');
+        Route::post('/announcement-edit-update/{id}', [AnnouncementController::class, 'announcementUpdate'])->name('announcement-Update');
     });
 
     Route::group(['middleware' => ['teacher']], function () {

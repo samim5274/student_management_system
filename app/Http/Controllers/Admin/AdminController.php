@@ -129,7 +129,7 @@ class AdminController extends Controller
         } else {
             $imgname = 'head-';
         }
-
+        
         if ($request->hasFile('photo')) {
             if ($data->photo) {
                 $path = public_path('/img/uploads/' . $data->photo);

@@ -139,7 +139,7 @@
             <div class="col-12">
                 <div class="dashboard-card">
                     <h5 class="mb-3">Add New Announcement</h5>
-                    <form action="{{url('/announcement-edit-update/'.$data->id)}}" method="GET" enctype="multipart/form-data">
+                    <form action="{{url('/announcement-edit-update/'.$data->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <div class="form-floating mb-3">
@@ -153,7 +153,7 @@
                         </div>  
                         <div class="mb-3">
                             <label for="photo" class="form-label">Photo</label>
-                            <input type="file" class="form-control" id="photo" name="photo" accept="image/*" required>
+                            <input type="file" class="form-control" id="photo" name="photo[]" accept="image/*" required>
                         </div>                      
                         <button type="submit" class="btn btn-primary">Edit</button>
                     </form><br>
